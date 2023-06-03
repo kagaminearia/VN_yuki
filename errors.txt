@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 140: style property xpos appears twice.
-    xpos 0
-        ^
+File "game/screens.rpy", line 726: 'background' is not a keyword argument or valid child for the screen statement.
+    background "gui/main_menu.png"
+              ^
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Thu Jun  1 21:00:07 2023
+Sat Jun  3 16:27:54 2023

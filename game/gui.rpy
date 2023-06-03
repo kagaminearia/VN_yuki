@@ -23,7 +23,7 @@ init python:
 ## 界面中文本的颜色。
 
 ## 整个界面中使用的强调色，用于标记和突出显示文本。
-define gui.accent_color = '#0099cc'
+define gui.accent_color = "#4bb7ae"
 
 ## 当文本按钮既未被选中也未被悬停时使用的颜色。
 define gui.idle_color = '#888888'
@@ -32,7 +32,7 @@ define gui.idle_color = '#888888'
 define gui.idle_small_color = '#aaaaaa'
 
 ## 当按钮和滑条被悬停时使用的颜色。
-define gui.hover_color = '#66c1e0'
+define gui.hover_color = "#4bb7ae"
 
 ## 当文本按钮被选中但非焦点时使用的颜色。当一个按钮为当前屏幕或设置选项值时，会
 ## 处于选中状态。
@@ -86,6 +86,7 @@ define gui.title_text_size = 50
 ## 标题菜单和游戏菜单使用的图像。
 define gui.main_menu_background = "gui/main_menu.png"
 define gui.game_menu_background = "gui/game_menu.png"
+define gui.config_background = "gui/环境_背景图.png"
 
 
 ## 对话 ##########################################################################
@@ -190,14 +191,14 @@ define gui.quick_button_text_selected_color = gui.accent_color
 ##
 ## 游戏内菜单使用的选项按钮。
 
-define gui.choice_button_width = 790
-define gui.choice_button_height = None
+define gui.choice_button_width = 600
+define gui.choice_button_height = 60
 define gui.choice_button_tile = False
-define gui.choice_button_borders = Borders(100, 5, 100, 5)
+define gui.choice_button_borders = Borders(100, 10, 100, 10)
 define gui.choice_button_text_font = gui.text_font
 define gui.choice_button_text_size = gui.text_size
 define gui.choice_button_text_xalign = 0.5
-define gui.choice_button_text_idle_color = "#cccccc"
+define gui.choice_button_text_idle_color = "#4bb7ae"
 define gui.choice_button_text_hover_color = "#ffffff"
 define gui.choice_button_text_insensitive_color = "#444444"
 
@@ -288,7 +289,7 @@ define gui.frame_tile = False
 ## 默认的 GUI 仅使用滑块和垂直滚动条。所有其他栏仅在创建者编写的屏幕中使用。
 
 ## 水平条，滚动条和滑块的高度。垂直条，滚动条和滑块的宽度。
-define gui.bar_size = 25
+define gui.bar_size = 15
 define gui.scrollbar_size = 12
 define gui.slider_size = 25
 

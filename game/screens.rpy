@@ -373,18 +373,14 @@ screen main_menu():
 
     ## 此语句可确保替换掉任何其他菜单界面。
     tag menu
-
     add gui.main_menu_background
 
     ## 此空框可使标题菜单变暗。
     frame:
         style "main_menu_frame"
-
     ## use 语句将其他的界面包含进此界面。标题界面的实际内容在导航界面中。
     use navigation
-
     if gui.show_name:
-
         vbox:
             style "main_menu_vbox"
 
@@ -561,7 +557,6 @@ style return_button:
 ## 面。
 
 screen about():
-
     tag menu
 
     ## 此 use 语句将 game_menu 界面包含到了这个界面内。子级 vbox 将包含在
@@ -720,90 +715,83 @@ style slot_button_text:
 
 
 ## 设置界面 ########################################################################
-##
 ## 设置界面允许用户配置游戏，使其更适合自己。
-##
 ## https://www.renpy.cn/doc/screen_special.html#preferences
 
 screen preferences():
-
+    add gui.config_background
     tag menu
+    # textbutton _("返回"):
+    #     style "return_button"
+    #     action Return()
+    # use game_menu(_("设置"), scroll="viewport"):
+    hbox:
+        xalign 0.95
+        yalign 0.05
+        imagebutton auto "gui/button/custom_back_%s.png" action Return()
+    vbox:
+        xalign 0.5 
+        yalign 0.5
+        ## 可在此处添加 radio_pref 或 check_pref 类型的额外 vbox，以添加
+        ## 额外的创建者定义的偏好设置。
+        null height (4 * gui.pref_spacing)
+        spacing 30
+        hbox:
+            style_prefix "slider"
+            box_wrap True
+            vbox:
+                spacing 10
+                if config.has_music:
+                    label _("音乐音量") 
+                if config.has_sound:
+                    label _("音效音量")
+                
+                label _("文字速度")
+                label _("自动前进时间")
 
-    use game_menu(_("设置"), scroll="viewport"):
-
+            vbox:
+                spacing 34
+                if config.has_music:
+                    bar value Preference("music volume")
+                if config.has_sound:
+                    bar value Preference("sound volume")
+                bar value Preference("text speed")
+                bar value Preference("auto-forward time")
+        
         vbox:
+            spacing 30
+            # box_wrap True
+            if renpy.variant("pc") or renpy.variant("web"):
+                hbox:
+                    spacing 60
+                    label _("显示界面")
+                    textbutton _("窗口模式"):
+                        style "edit_check"
+                        text_color "#4bb7ae"
+                        action Preference("display", "window")
+                    textbutton _("全屏模式"):
+                        style "edit_check"
+                        text_color "#4bb7ae"
+                        action Preference("display", "fullscreen")
 
             hbox:
-                box_wrap True
-
-                if renpy.variant("pc") or renpy.variant("web"):
-
-                    vbox:
-                        style_prefix "radio"
-                        label _("显示")
-                        textbutton _("窗口") action Preference("display", "window")
-                        textbutton _("") action Preference("display", "fullscreen")
-
-                vbox:
-                    style_prefix "check"
-                    label _("快进")
-                    textbutton _("未读文本") action Preference("skip", "toggle")
-                    textbutton _("选项后继续") action Preference("after choices", "toggle")
-                    textbutton _("忽略转场") action InvertSelected(Preference("transitions", "toggle"))
-
-                ## 可在此处添加 radio_pref 或 check_pref 类型的额外 vbox，以添加
-                ## 额外的创建者定义的偏好设置。
-
-            null height (4 * gui.pref_spacing)
-
-            hbox:
-                style_prefix "slider"
-                box_wrap True
-
-                vbox:
-
-                    label _("文字速度")
-
-                    bar value Preference("text speed")
-
-                    label _("自动前进时间")
-
-                    bar value Preference("auto-forward time")
-
-                vbox:
-
-                    if config.has_music:
-                        label _("音乐音量")
-
-                        hbox:
-                            bar value Preference("music volume")
-
-                    if config.has_sound:
-
-                        label _("音效音量")
-
-                        hbox:
-                            bar value Preference("sound volume")
-
-                            if config.sample_sound:
-                                textbutton _("测试") action Play("sound", config.sample_sound)
+                spacing 60
+                label _("快进选择")
+                textbutton _("未读文本"):
+                    style "edit_check"
+                    text_color "#4bb7ae"
+                    action Preference("skip", "toggle")
+                textbutton _("选项后继续"):
+                    style "edit_check"
+                    text_color "#4bb7ae"
+                    action Preference("after choices", "toggle")
 
 
-                    if config.has_voice:
-                        label _("语音音量")
-
-                        hbox:
-                            bar value Preference("voice volume")
-
-                            if config.sample_voice:
-                                textbutton _("测试") action Play("voice", config.sample_voice)
-
-                    if config.has_music or config.has_sound or config.has_voice:
-                        null height gui.pref_spacing
-
-                        textbutton _("全部静音"):
-                            action Preference("all mute", "toggle")
-                            style "mute_all_button"
+style edit_check:
+    background "gui/单选框_foreground.png"
+    hover_background "gui/单选框_selected_foreground.png"
+    foreground "gui/单选框_[prefix_]foreground.png"
+    left_padding 50
 
 
 style pref_label is gui_label
