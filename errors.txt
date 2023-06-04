@@ -2,8 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 562: is not terminated with a newline. (Check strings and parenthesis.)
-                            action [[SetVariable("save_name",_last_say_what[:30]),FileAction(slot)]
+File "game/screens.rpy", line 783: 'size' is not a keyword argument or valid child for the vbox statement.
+    size(600,500)
+        ^
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Sat Jun  3 18:50:37 2023
+Sat Jun  3 19:25:05 2023

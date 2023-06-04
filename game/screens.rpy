@@ -768,16 +768,21 @@ style slider_vbox:
 screen history():
 
     tag menu
-
+    add gui.history_background
+    add gui.history_text align(0.5,0.5)
+    hbox:
+        xalign 0.95
+        yalign 0.05
+        imagebutton auto "gui/button/custom_back_%s.png" action Return()
     ## 避免预缓存此界面，因为它可能非常大。
     predict False
-
-    use game_menu(_("历史"), scroll=("vpgrid" if gui.history_height else "viewport"), yinitial=1.0):
-
-        style_prefix "history"
-
+    # use game_menu(_("历史"), scroll=("vpgrid" if gui.history_height else "viewport"), yinitial=1.0):
+    
+    style_prefix "history"
+    vbox:
+        align (0.5,0.3)
+        offset(150,0)
         for h in _history_list:
-
             window:
 
                 ## 此代码可确保如果 history_height 为 None 时仍可正常显示条目。
@@ -797,6 +802,7 @@ screen history():
 
                 $ what = renpy.filter_text_tags(h.what, allow=gui.history_allow_tags)
                 text what:
+                    color "#4bb7ae"
                     substitute False
 
         if not _history_list:

@@ -30,7 +30,7 @@ init python:
 define gui.accent_color = "#4bb7ae"
 
 ## 当文本按钮既未被选中也未被悬停时使用的颜色。
-define gui.idle_color = '#888888'
+define gui.idle_color = "#3a8e87"
 
 ## 小的颜色用于小的文本，需要更亮/更暗才能达到同样的效果。
 define gui.idle_small_color = '#aaaaaa'
@@ -40,7 +40,7 @@ define gui.hover_color = "#4bb7ae"
 
 ## 当文本按钮被选中但非焦点时使用的颜色。当一个按钮为当前屏幕或设置选项值时，会
 ## 处于选中状态。
-define gui.selected_color = '#ffffff'
+define gui.selected_color = "#4bb7ae"
 
 ## 当文本按钮无法被选择时使用的颜色。
 define gui.insensitive_color = '#8888887f'
@@ -51,7 +51,7 @@ define gui.muted_color = '#003d51'
 define gui.hover_muted_color = '#005b7a'
 
 ## 对话和菜单选择文本使用的颜色。
-define gui.text_color = '#ffffff'
+define gui.text_color = "#4bb7ae"
 define gui.interface_text_color = '#ffffff'
 
 
@@ -92,7 +92,8 @@ define gui.main_menu_background = "gui/main_menu.png"
 define gui.game_menu_background = "gui/custom_main_menu.png"
 define gui.config_background = "gui/环境_背景图.png"
 define gui.data_background = "gui/存读档_背景图.png"
-
+define gui.history_background = "gui/历史_背景图.png"
+define gui.history_text = "gui/历史_文本框.png"
 
 ## 对话 ##########################################################################
 ##
