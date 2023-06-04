@@ -250,7 +250,7 @@ screen quick_menu():
             imagebutton auto "gui/button/auto_%s.png" action Preference("auto-forward", "toggle")
             imagebutton auto "gui/button/skip_%s.png" action Skip() alternate Skip(fast=True, confirm=True)
             imagebutton auto "gui/button/log_%s.png" action ShowMenu('history')
-            imagebutton auto "gui/button/menu_%s.png" action ShowMenu('preferences')
+            imagebutton auto "gui/button/menu_%s.png" action ShowMenu('game_menu')
 
 
 ## 此代码确保只要用户没有主动隐藏界面，就会在游戏中显示 quick_menu 界面。
@@ -309,45 +309,28 @@ screen navigation():
                 imagebutton auto "gui/button/标题_退出游戏_%s.png" action Quit(confirm=not main_menu)
     
     else:
-        vbox:
+        hbox:
+            xalign 0.5
             style_prefix "navigation"
-
-            xpos gui.navigation_xpos
             yalign 0.5
-
             spacing gui.navigation_spacing
 
             if main_menu:
-
                 textbutton _("开始游戏") action Start()
 
             else:
-
+                textbutton _("保存") action ShowMenu("save")
+                textbutton _("读取游戏") action ShowMenu("load")
+                textbutton _("设置") action ShowMenu("preferences")
                 textbutton _("历史") action ShowMenu("history")
 
-                textbutton _("保存") action ShowMenu("save")
-
-            textbutton _("读取游戏") action ShowMenu("load")
-
-            textbutton _("设置") action ShowMenu("preferences")
-
             if _in_replay:
-
                 textbutton _("结束回放") action EndReplay(confirm=True)
 
             elif not main_menu:
-
                 textbutton _("标题界面") action MainMenu()
 
-            textbutton _("关于") action ShowMenu("about")
-
-            if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
-
-                ## “帮助”对移动设备来说并非必需或相关。
-                textbutton _("帮助") action ShowMenu("help")
-
             if renpy.variant("pc"):
-
                 ## 退出按钮在 iOS 上是被禁止使用的，在安卓和网页上也不是必要的。
                 textbutton _("退出") action Quit(confirm=not main_menu)
 
@@ -430,68 +413,19 @@ style main_menu_version:
 ## scroll 参数可以是 None，也可以是 viewport 或 vpgrid。当此界面与一个或多个子界
 ## 面同时使用时，这些子界面将被嵌入（放置）在其中。
 
-screen game_menu(title, scroll=None, yinitial=0.0):
-
-    style_prefix "game_menu"
+screen game_menu(title=None, scroll=None, yinitial=0.0):
 
     if main_menu:
         add gui.main_menu_background
     else:
         add gui.game_menu_background
-
-    frame:
-        style "game_menu_outer_frame"
-
-        hbox:
-
-            ## 导航部分的预留空间。
-            frame:
-                style "game_menu_navigation_frame"
-
-            frame:
-                style "game_menu_content_frame"
-
-                if scroll == "viewport":
-
-                    viewport:
-                        yinitial yinitial
-                        scrollbars "vertical"
-                        mousewheel True
-                        draggable True
-                        pagekeys True
-
-                        side_yfill True
-
-                        vbox:
-                            transclude
-
-                elif scroll == "vpgrid":
-
-                    vpgrid:
-                        cols 1
-                        yinitial yinitial
-
-                        scrollbars "vertical"
-                        mousewheel True
-                        draggable True
-                        pagekeys True
-
-                        side_yfill True
-
-                        transclude
-
-                else:
-
-                    transclude
+    
+    hbox:
+        xalign 0.95
+        yalign 0.05
+        imagebutton auto "gui/button/custom_back_%s.png" action Return()
 
     use navigation
-
-    textbutton _("返回"):
-        style "return_button"
-
-        action Return()
-
-    label title
 
     if main_menu:
         key "game_menu" action ShowMenu("main_menu")
@@ -608,78 +542,76 @@ screen load():
 
 
 screen file_slots(title):
-
+    add gui.data_background
     default page_name_value = FilePageNameInputValue(pattern=_("第 {} 页"), auto=_("自动存档"), quick=_("快速存档"))
 
-    use game_menu(title):
+    # use game_menu(title):
+    fixed:
+        ## 此代码确保输入控件在任意按钮执行前可以获取 enter 事件。
+        order_reverse True
 
-        fixed:
+        ## 页面名称，可以通过单击按钮进行编辑。
+        button:
+            style "page_label"
 
-            ## 此代码确保输入控件在任意按钮执行前可以获取 enter 事件。
-            order_reverse True
+            key_events True
+            xalign 0.5
+            action page_name_value.Toggle()
 
-            ## 页面名称，可以通过单击按钮进行编辑。
-            button:
-                style "page_label"
+            input:
+                style "page_label_text"
+                value page_name_value
 
-                key_events True
-                xalign 0.5
-                action page_name_value.Toggle()
+        ## 存档位网格。
+        grid gui.file_slot_cols gui.file_slot_rows:
+            style_prefix "slot"
 
-                input:
-                    style "page_label_text"
-                    value page_name_value
+            xalign 0.5
+            yalign 0.5
 
-            ## 存档位网格。
-            grid gui.file_slot_cols gui.file_slot_rows:
-                style_prefix "slot"
+            spacing gui.slot_spacing
 
-                xalign 0.5
-                yalign 0.5
+            for i in range(gui.file_slot_cols * gui.file_slot_rows):
 
-                spacing gui.slot_spacing
+                $ slot = i + 1
 
-                for i in range(gui.file_slot_cols * gui.file_slot_rows):
+                button:
+                    action FileAction(slot)
 
-                    $ slot = i + 1
+                    has vbox
 
-                    button:
-                        action FileAction(slot)
+                    add FileScreenshot(slot) xalign 0.5
 
-                        has vbox
+                    text FileTime(slot, format=_("{#file_time}%Y-%m-%d %H:%M"), empty=_("空存档位")):
+                        style "slot_time_text"
 
-                        add FileScreenshot(slot) xalign 0.5
+                    text FileSaveName(slot):
+                        style "slot_name_text"
 
-                        text FileTime(slot, format=_("{#file_time}%Y-%m-%d %H:%M"), empty=_("空存档位")):
-                            style "slot_time_text"
+                    key "save_delete" action FileDelete(slot)
 
-                        text FileSaveName(slot):
-                            style "slot_name_text"
+        ## 用于访问其他页面的按钮。
+        hbox:
+            style_prefix "page"
 
-                        key "save_delete" action FileDelete(slot)
+            xalign 0.5
+            yalign 1.0
 
-            ## 用于访问其他页面的按钮。
-            hbox:
-                style_prefix "page"
+            spacing gui.page_spacing
 
-                xalign 0.5
-                yalign 1.0
+            textbutton _("<") action FilePagePrevious()
 
-                spacing gui.page_spacing
+            if config.has_autosave:
+                textbutton _("{#auto_page}A") action FilePage("auto")
 
-                textbutton _("<") action FilePagePrevious()
+            if config.has_quicksave:
+                textbutton _("{#quick_page}Q") action FilePage("quick")
 
-                if config.has_autosave:
-                    textbutton _("{#auto_page}A") action FilePage("auto")
+            ## range(1, 10) 给出 1 到 9 之间的数字。
+            for page in range(1, 10):
+                textbutton "[page]" action FilePage(page)
 
-                if config.has_quicksave:
-                    textbutton _("{#quick_page}Q") action FilePage("quick")
-
-                ## range(1, 10) 给出 1 到 9 之间的数字。
-                for page in range(1, 10):
-                    textbutton "[page]" action FilePage(page)
-
-                textbutton _(">") action FilePageNext()
+            textbutton _(">") action FilePageNext()
 
 
 style page_label is gui_label

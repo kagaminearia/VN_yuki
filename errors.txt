@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 726: 'background' is not a keyword argument or valid child for the screen statement.
-    background "gui/main_menu.png"
+File "game/screens.rpy", line 282: expected 'image_name_component' not found.
+    attribute "load":
               ^
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Sat Jun  3 16:27:54 2023
+Sat Jun  3 16:57:56 2023
