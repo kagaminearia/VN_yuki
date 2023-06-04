@@ -555,22 +555,40 @@ screen file_slots(title,scroll=None):
                 yalign 0.5
                 spacing 50
                 for i in range(gui.file_slot_cols * gui.file_slot_rows):
-                    $ slot = i + 1
+                    python:
+                        slot = i + 1
+                        name_to_save = ""
+                        if len(_history_list) != 0: 
+                            if type(_history_list[-1].who) is NoneType: 
+                                name_to_save = "     " + _history_list[-1].what
+                            else: 
+                                name_to_save = "【" + _history_list[-1].who + "】 " + _history_list[-1].what
+                    
                     button:
                         background "gui/button/存读档_按钮_idle.png"
                         hover_background "gui/button/存读档_按钮_hover.png"
-                        action FileAction(slot)
+                        action [
+                            SetVariable("save_name", name_to_save),
+                            FileAction(slot)
+                        ]
                         hbox:
                             spacing 40
-                            add FileScreenshot(slot) align(0.0,0.5) zoom 0.7 offset(20,10)
-                            vbox:
-                                xalign 0.5
-                                text FileTime(slot, format=_("{#file_time}%Y-%m-%d %H:%M"), empty=_("尚无记录")):
-                                    style "slot_time_text"
-
-                                text FileSaveName(slot):
-                                    color "#000000"
-
+                            if FileTime(slot):
+                                add FileScreenshot(slot) align(0.0,0.5) zoom 0.7 offset(20,10)
+                                vbox:
+                                    xalign 0.5
+                                    text "{color=#e6a1f8}%s{/color}" % FileTime(slot, format=_("{#file_time}%Y/%m/%d %H:%M")):
+                                        style "slot_time_text"
+                                    text FileSaveName(slot):
+                                        style "slot_name_text"
+                            else:
+                                image "gui/button/slot_idle_background.png" align(0.0, 0.6) zoom 0.9 offset(20, 10)
+                                vbox:
+                                    # TODO: change the color and potentially the alignment of text
+                                    xalign 0.5
+                                    yalign 0.8
+                                    text "{color=#3a8e87}%s{/color}" % "尚无记录"
+                            
                             key "save_delete" action FileDelete(slot)
         
         vbar value YScrollValue("slot") yalign 0.5 ysize 350

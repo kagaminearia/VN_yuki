@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 783: 'size' is not a keyword argument or valid child for the vbox statement.
-    size(600,500)
-        ^
+File "game/screens.rpy", line 561: expected an indented block
+    if len(_history_list) != 0:
+    
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Sat Jun  3 19:25:05 2023
+Sun Jun  4 15:11:12 2023
