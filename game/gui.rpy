@@ -11,7 +11,11 @@ init offset = -2
 init python:
     gui.init(1280, 720)
 
-
+init python:
+    config.has_autosave = False
+    config.has_quicksave = False
+    config.autosave_on_quit = False
+    config.autosave_on_choice = False
 
 ################################################################################
 ## GUI 配置变量
@@ -210,22 +214,22 @@ define gui.choice_button_text_insensitive_color = "#444444"
 ## gui/button 中的图像文件，就像其他类型的按钮一样。
 
 ## 存档位按钮。
-define gui.slot_button_width = 276
-define gui.slot_button_height = 206
+define gui.slot_button_width = 1000
+define gui.slot_button_height = 140
 define gui.slot_button_borders = Borders(10, 10, 10, 10)
-define gui.slot_button_text_size = 14
+define gui.slot_button_text_size = 20
 define gui.slot_button_text_xalign = 0.5
 define gui.slot_button_text_idle_color = gui.idle_small_color
-define gui.slot_button_text_selected_idle_color = gui.selected_color
+define gui.slot_button_text_selected_idle_color = gui.hover_color
 define gui.slot_button_text_selected_hover_color = gui.hover_color
 
 ## 存档所用缩略图的宽度和高度。
-define config.thumbnail_width = 256
-define config.thumbnail_height = 144
+define config.thumbnail_width = 204.8
+define config.thumbnail_height = 115.2
 
 ## 存档网格中的列数和行数。
-define gui.file_slot_cols = 3
-define gui.file_slot_rows = 2
+define gui.file_slot_cols = 1
+define gui.file_slot_rows = 30
 
 
 ## 定位和间距 #######################################################################
