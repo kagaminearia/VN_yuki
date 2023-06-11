@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 561: expected an indented block
-    if len(_history_list) != 0:
-    
+File "game/screens.rpy", line 1537: Line is indented, but the preceding text_color statement does not expect a block. Please check this line's indentation.
+    text_hover_color "#ffffff"
+    ^
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Sun Jun  4 15:11:12 2023
+Sat Jun 10 12:31:47 2023

@@ -250,7 +250,7 @@ screen quick_menu():
             imagebutton auto "gui/button/auto_%s.png" action Preference("auto-forward", "toggle")
             imagebutton auto "gui/button/skip_%s.png" action Skip() alternate Skip(fast=True, confirm=True)
             imagebutton auto "gui/button/log_%s.png" action ShowMenu('history')
-            imagebutton auto "gui/button/menu_%s.png" action ShowMenu('game_menu')
+            imagebutton auto "gui/button/menu_%s.png" action ShowMenu('custom_main_menu')
 
 
 ## 此代码确保只要用户没有主动隐藏界面，就会在游戏中显示 quick_menu 界面。
@@ -380,12 +380,12 @@ style main_menu_text is gui_text
 style main_menu_title is main_menu_text
 style main_menu_version is main_menu_text
 
-style main_menu_frame:
+#style main_menu_frame:
     # xsize 280
     # yfill True
-    xoffset 400
-    yoffset 130
-    background "gui/标题_logo.png"
+    #xoffset 400
+    #yoffset 130
+    #background "gui/标题_logo.png"
     # background "gui/overlay/main_menu.png"
 
 style main_menu_vbox:
@@ -1053,9 +1053,10 @@ screen confirm(message, yes_action, no_action):
 
     style_prefix "confirm"
 
-    add "gui/overlay/confirm.png"
+    #add "gui/overlay/confirm.png"
 
     frame:
+        #background None  
 
         vbox:
             xalign .5
@@ -1070,8 +1071,28 @@ screen confirm(message, yes_action, no_action):
                 xalign 0.5
                 spacing 100
 
-                textbutton _("确定") action yes_action
-                textbutton _("取消") action no_action
+                #textbutton _("确定") action yes_action
+                #textbutton _("取消") action no_action
+
+                #textbutton "是":
+                    #text_color "#7dcfda"
+                    #text_hover_color "#ffffff"
+
+                    #action yes_action
+                #textbutton "否":
+                    #text_color "#7dcfda"
+                    #text_hover_color "#ffffff"
+                    #action no_action
+
+                imagebutton:
+                    idle "gui/button/btn_yes_yk_idle.png"
+                    hover "gui/button/btn_yes_yk.png"
+                    action yes_action
+
+                imagebutton:
+                    idle "gui/button/btn_no_yk_idle.png"
+                    hover "gui/button/btn_no_yk.png"
+                    action no_action
 
     ## 右键点击退出并答复 no（取消）。
     key "game_menu" action no_action
@@ -1418,3 +1439,128 @@ style slider_vbox:
 style slider_slider:
     variant "small"
     xsize 600
+
+#主菜单界面
+
+style custom_btn:
+        xysize(75, 461)
+        background "gui/button/custom_idle.png"
+        hover_background "gui/button/custom_hover.png"
+
+screen custom_main_menu():
+    tag menu
+    zorder 100
+    add "gui/custom_main_menu.png"
+
+    imagebutton:
+        xalign 0.97
+        yalign 0.05
+        idle "gui/button/custom_back_idle.png"
+        hover "gui/button/custom_back_hover.png"
+        action Return()
+
+    hbox:
+        #style_prefix "custom_btn"
+        xalign 0.5
+        yalign 0.7
+        spacing 120
+        xysize(75, 461)
+
+        textbutton "保存进度":
+            text_color "#7dcfda"
+            text_hover_color "#ffffff"
+            text_vertical True
+            background "gui/button/custom_idle.png"
+            hover_background "gui/button/custom_hover.png"
+            top_padding 180
+            left_padding 27
+
+            action ShowMenu('save')
+
+        textbutton "读取进度":
+            text_color "#7dcfda"
+            text_hover_color "#ffffff"
+            text_vertical True
+            background "gui/button/custom_idle.png"
+            hover_background "gui/button/custom_hover.png"
+            top_padding 180
+            left_padding 27
+
+            action ShowMenu('load')
+
+        textbutton "环境设置":
+            text_color "#7dcfda"
+            text_hover_color "#ffffff"
+            text_vertical True
+            background "gui/button/custom_idle.png"
+            hover_background "gui/button/custom_hover.png"
+            top_padding 180
+            left_padding 27
+
+            action ShowMenu('preferences')
+
+        textbutton "历史记录":
+            text_color "#7dcfda"
+            text_hover_color "#ffffff"
+            text_vertical True
+            background "gui/button/custom_idle.png"
+            hover_background "gui/button/custom_hover.png"
+            top_padding 180
+            left_padding 27
+
+            action ShowMenu('history')
+
+        textbutton "返回标题":
+            text_color "#7dcfda"
+            text_hover_color "#ffffff"
+            text_vertical True
+            background "gui/button/custom_idle.png"
+            hover_background "gui/button/custom_hover.png"
+            top_padding 180
+            left_padding 27
+
+            action MainMenu()
+
+        textbutton "退出游戏":
+            text_color "#7dcfda"
+            text_hover_color "#ffffff"
+            text_vertical True
+            background "gui/button/custom_idle.png"
+            hover_background "gui/button/custom_hover.png"
+            top_padding 180
+            left_padding 27
+
+            action Quit(confirm=not main_menu)
+
+        #textbutton "切换日语":
+        #   text_color "#7dcfda"
+        #   text_hover_color "#ffffff"
+        #   text_vertical True
+        #   background "gui/button/custom_idle.png"
+        #   hover_background "gui/button/custom_hover.png"
+        #   top_padding 180
+        #   left_padding 27
+
+        #   action Language("japannese")
+
+        #textbutton "切换中文":
+        #   text_color "#7dcfda"
+        #   text_hover_color "#ffffff"
+        #   text_vertical True
+        #   background "gui/button/custom_idle.png"
+        #   hover_background "gui/button/custom_hover.png"
+        #   top_padding 180
+        #   left_padding 27
+
+        #   action Language(None)
+
+#下雪特效
+image snow1 = SnowBlossom("images/others/snow_define_1.png", count=200)
+image snow2 = SnowBlossom("images/others/snow_define_2.png", count=200)
+
+init:
+    image snow_anim:
+        "snow_define_1.png"
+        yoffset 0
+        linear 5 yoffset 720
+        repeat
