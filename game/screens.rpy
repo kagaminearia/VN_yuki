@@ -1065,6 +1065,8 @@ screen confirm(message, yes_action, no_action):
 
             label _(message):
                 style "confirm_prompt"
+                text_color "#4bb7ae"
+                text_font "SourceHanSansSC-Regular.otf"
                 xalign 0.5
 
             hbox:

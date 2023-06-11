@@ -1,9 +1,7 @@
 ﻿# 游戏的脚本可置于此文件中。
-
 # 声明此游戏使用的角色。颜色参数可使角色姓名着色。
-
-define y = Character("景雪")
-define www = Character("？？？")
+# define y = Character("景雪")
+# define www = Character("？？？")
 
 
 # 游戏在此开始。
@@ -247,7 +245,7 @@ label start:
     with dissolve
 
     "我被吓到，急忙朝后仰去，险些摔倒。"
-    #with Shake((0, 0, 0, 0), 1.0, dist=10)
+    # with Shake((0, 0, 0, 0), 1.0, dist=10)
     show miracle b 18 at center_yk
     www "哎哟，你怎么了？没事吧？"
     "他蹲在我面前，拉了我一下。"
