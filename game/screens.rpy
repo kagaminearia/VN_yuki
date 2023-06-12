@@ -92,15 +92,8 @@ style frame:
 ##
 ## https://www.renpy.cn/doc/screen_special.html#say
 
-init python:
-    container = "nothing"
-    dic = {}
-
 screen say(who, what):
     style_prefix "say"
-    python:
-        global container
-        container = what
 
     window:
         id "window"
@@ -114,7 +107,6 @@ screen say(who, what):
 
         text what id "what" color "#4bb7ae"
         
-
     ## 如果有对话框头像，会将其显示在文本之上。请不要在手机界面下显示这个，因为没有空间。
     if not renpy.variant("small"):
         add SideImage() xalign 0.0 yalign 1.0
@@ -580,18 +572,14 @@ screen file_slots(title,scroll=None):
                         ]
                         hbox:
                             spacing 40
-                            $ global container
-                            $ global dic
                             if FileTime(slot):
                                 add FileScreenshot(slot) align(0.0,0.5) zoom 0.7 offset(20,10)
-                                $ dic[slot] = container
                                 vbox:
                                     xalign 0.5
                                     text "{color=#e6a1f8}%s{/color}" % FileTime(slot, format=_("{#file_time}%Y/%m/%d %H:%M")):
                                         style "slot_time_text"
                                     text FileSaveName(slot):
                                         style "slot_name_text"
-                                    # text dic[slot]
                             else:
                                 image "gui/button/slot_idle_background.png" align(0.0, 0.6) zoom 0.9 offset(20, 10)
                                 vbox:
