@@ -11,7 +11,7 @@
 ##
 ## 带有 _() 的字符串表示其可被翻译。
 
-define config.name = _("yuki")
+define config.name = _("异世界的雪与奇迹")
 
 
 ## 决定上面给出的标题是否显示在标题界面屏幕。设置为 False 来隐藏标题。
@@ -21,20 +21,42 @@ define gui.show_name = False
 
 ## 游戏版本号。
 
-define config.version = "1.0"
+#define config.version = "1.0"
 
 
 ## 放置在游戏内“关于”屏幕上的文本。将文本放在三个引号之间，并在段落之间留出空
 ## 行。
 
 define gui.about = _p("""
+策划 未来轨迹
+
+剧本 未来轨迹
+
+校对 甘蔗
+
+角色美术 阿诺
+
+背景美术（部分） 七米
+
+UI
+
+LOGO YouKa
+
+宣传设计：YouKa、谶玥、未来轨迹
+
+音乐 dova（素材）
+
+程序 天光、79、未来轨迹
+
+特别感谢： 每一位在制作过程帮助过我的人，以及正在阅读这个页面的你
+
 """)
 
 
 ## 在构建的发布版中，可执行文件和目录所使用的短名称。此处仅限使用 ASCII 字符，并
 ## 且不能包含空格、冒号或分号。
 
-define build.name = "yuki"
+define build.name = "yukiseki"
 
 
 ## 音效和音乐 #######################################################################
@@ -57,7 +79,7 @@ define config.has_voice = True
 ## 将以下语句取消注释就可以设置标题界面播放的背景音乐文件。此文件将在整个游戏中
 ## 持续播放，直至音乐停止或其他文件开始播放。
 
-# define config.main_menu_music = "main-menu-theme.ogg"
+define config.main_menu_music = "audio/bgm01.mp3"
 
 
 ## 转场 ##########################################################################
@@ -112,7 +134,7 @@ define config.window_hide_transition = Dissolve(.2)
 
 ## 控制默认的文字显示速度。默认的 0 为瞬间，而其他数字则是每秒显示出的字符数。
 
-default preferences.text_cps = 0
+default preferences.text_cps = 16
 
 
 ## 默认的自动前进延迟。数字越大，等待时间越长，有效范围为 0 - 30。

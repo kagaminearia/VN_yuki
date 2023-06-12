@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 783: 'size' is not a keyword argument or valid child for the vbox statement.
-    size(600,500)
-        ^
+File "game/screens.rpy", line 1537: Line is indented, but the preceding text_color statement does not expect a block. Please check this line's indentation.
+    text_hover_color "#ffffff"
+    ^
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Sat Jun  3 19:25:05 2023
+Sat Jun 10 12:31:47 2023
