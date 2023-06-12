@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 1537: Line is indented, but the preceding text_color statement does not expect a block. Please check this line's indentation.
-    text_hover_color "#ffffff"
-    ^
+File "game/screens.rpy", line 817: keyword argument 'yinitial' appears more than once in a viewport statement.
+    yinitial 0.0
+            ^
 
-Ren'Py Version: Ren'Py 8.0.3.22090809
-Sat Jun 10 12:31:47 2023
+Ren'Py Version: Ren'Py 8.1.0.23051307
+Sun Jun 11 22:29:06 2023
