@@ -51,9 +51,12 @@ label start:
     听着下雪的细小声音，我忍不住对讲故事的神明祈祷。
 
     """
-
     show yuki b 01 at center_yk_b
     with dissolve
+    # vertical shake
+    with vpunch
+    # horizontal shake
+    with hpunch
 
     y "（月神啊，请听听我的愿望吧，求你实现它。）"
     y "（请赐予我改变自己的勇气，让我能够挺起胸膛自信地对别人如此说。）"
