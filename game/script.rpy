@@ -1,11 +1,8 @@
-﻿# 游戏的脚本可置于此文件中。
-# 声明此游戏使用的角色。颜色参数可使角色姓名着色。
-# define y = Character("景雪")
-# define www = Character("？？？")
-
+﻿init python:
+    hpunch = Move((15, 0), (-15, 0), .10, bounce=True, repeat=True, delay=.275)
+    vpunch = Move((0, 20), (0, -20), .10, bounce=True, repeat=True, delay=.275)
 
 # 游戏在此开始。
-
 label start:
 
     # 显示一个背景。此处默认显示占位图，但您也可以在图片目录添加一个文件
@@ -32,6 +29,7 @@ label start:
 
     scene bg 0101
     with fade
+    with vpunch
 
     show snow2
 

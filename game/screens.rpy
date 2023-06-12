@@ -91,10 +91,8 @@ style frame:
 ## 示。它还可以创建 id 为 who 和 id 为 window 的可视控件来应用样式属性。
 ##
 ## https://www.renpy.cn/doc/screen_special.html#say
-
 screen say(who, what):
     style_prefix "say"
-
     window:
         id "window"
 
@@ -797,34 +795,49 @@ screen history():
     # use game_menu(_("历史"), scroll=("vpgrid" if gui.history_height else "viewport"), yinitial=1.0):
     
     style_prefix "history"
-    vbox:
-        align (0.5,0.3)
-        offset(150,0)
-        for h in _history_list:
-            window:
 
-                ## 此代码可确保如果 history_height 为 None 时仍可正常显示条目。
-                has fixed:
-                    yfit True
+    side "c r":
+        area (100,160,1000,400)
+        viewport id "slot":
+            draggable True
+            mousewheel True
+            yinitial 800.0
+            if not _history_list:
+                label _("尚无对话历史记录。")
+            else:
+                vbox:
+                    for h in _history_list:
+                        window:
+                            ## 此代码可确保如果 history_height 为 None 时仍可正常显示条目。
+                            has fixed:
+                                yfit True
+                            hbox:
+                                xminimum 20 xmaximum 750 yminimum 20 ymaximum 40
+                                if h.who:
 
-                if h.who:
+                                    label h.who:
+                                        xpos 220
+                                        ypos 0
+                                        style "history_name"
+                                        substitute False
 
-                    label h.who:
-                        style "history_name"
-                        substitute False
+                                        ## 从 Character 对象中获取叙述角色的文字颜色，如果设置了
+                                        ## 的话。
+                                        # if "color" in h.who_args:
+                                        #     text_color h.who_args["color"]
+                                        ## TODO: add the background and change text_color to character color
+                                        ## Tentatively change text_color to BLK for testing
+                                        text_color "000000"
 
-                        ## 从 Character 对象中获取叙述角色的文字颜色，如果设置了
-                        ## 的话。
-                        if "color" in h.who_args:
-                            text_color h.who_args["color"]
+                                $ what = renpy.filter_text_tags(h.what, allow=gui.history_allow_tags)
+                                text what:
+                                    color "#4bb7ae"
+                                    substitute False
 
-                $ what = renpy.filter_text_tags(h.what, allow=gui.history_allow_tags)
-                text what:
-                    color "#4bb7ae"
-                    substitute False
-
-        if not _history_list:
-            label _("尚无对话历史记录。")
+                if not _history_list:
+                    label _("尚无对话历史记录。")
+        
+        vbar value YScrollValue("slot") yalign 0.5 ysize 350
 
 
 ## 此代码决定了允许在历史记录界面上显示哪些标签。
